@@ -17,9 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class GuideController {
 
-    @RequestMapping("/")
-    public String index() {
-        return "Greetings from Spring Boot!";
+    @GetMapping("/")
+    public String index(Model model) {
+        model.addAttribute("userInfo", "lemon");
+        return "guide";
     }
 
     @GetMapping("/guide")
