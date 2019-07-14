@@ -35,7 +35,6 @@ public class GuideController {
     @GetMapping("/guide")
     public String guide(Model model) {
         model.addAttribute("userInfo", port);
-        System.out.println("==============" + port);
         return "guide";
     }
 
