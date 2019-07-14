@@ -51,7 +51,7 @@
         }
     </style>
 </head>
-<body  class="layui-bg-green" style="font-size: 16px;">
+<body style="font-size: 16px;">
 <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
 <!--[if lt IE 9]>
 <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -108,11 +108,8 @@
                     <li style="float: left;padding-right: 10px;">
                         <i class="layui-icon layui-icon-username" style="font-size: 25px;"></i>
                     </li>
-                    <li style="float: left;padding-right: 10px;" onclick="showMessage()">
+                    <li style="float: left" onclick="showMessage()">
                         <i class="layui-icon layui-icon-notice" style="font-size: 25px;"></i>
-                    </li>
-                    <li style="float: left;padding-right: 10px;" onclick="sendMessage()">
-                        <i class="layui-icon layui-icon-release" style="font-size: 25px;"></i>
                     </li>
                 </ul>
             </div>
@@ -132,6 +129,8 @@
             </div>
             -->
 
+            <div th:text="${userInfo}">123</div>
+            <p th:text="'Hello, ' + ${userInfo} + '!'" />
             <div style="padding-top: 2em;padding-bottom: 2em;" class="center">
                 <div class="layui-row grid">
                     <div class="layui-col-xs12 layui-col-md10 layui-col-md-offset1">
@@ -360,31 +359,11 @@
     function showMessage() {
         layer.open({
             type: 2,
-            anim: 2,
             title: '消息中心',
             shadeClose: true,
-            shade: 0.3,
-            area: ['380px', '100%'],
-            offset: 'rt',
+            shade: 0.8,
+            area: ['380px', '90%'],
             content: 'message/showMessage' //iframe的url
-        });
-    }
-
-    function sendMessage() {
-        layer.prompt({title: '随便写点啥，并确认', formType: 2}, function(text, index){
-            layer.close(index);
-            var $ = layui.jquery;
-            $.post("message/addMessage",{
-                    content:text
-                },
-                function(data){
-                    if (data.code === 0) {
-                        layer.msg('发布成功');
-                    } else {
-                        layer.msg('网络出了问题');
-                    }
-                }
-            );
         });
     }
 
