@@ -133,6 +133,19 @@
             -->
 
             <div style="padding-top: 2em;padding-bottom: 2em;" class="center">
+                <div class="layui-row grid" th:each="tagInfo: ${tagInfoVOs}">
+                    <div class="layui-col-xs12 layui-col-md10 layui-col-md-offset1">
+                        <div class="layui-col-xs2 layui-col-sm2 layui-col-md2 layui-word-aux">
+                            <div th:text="${tagInfo.groupName}">技术</div>
+                        </div>
+                        <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
+                            <div class="layui-col-xs3 layui-col-sm2 layui-col-md2" th:each="oneTagInfo: ${tagInfo.groupTagVOList}">
+                                <div><a th:href="${oneTagInfo.getGroupTagLink()}" target="_blank" th:text="${oneTagInfo.groupTagName}">Github</a> </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="layui-row grid">
                     <div class="layui-col-xs12 layui-col-md10 layui-col-md-offset1">
                         <div class="layui-col-xs2 layui-col-sm2 layui-col-md2 layui-word-aux">

@@ -36,6 +36,8 @@ CREATE TABLE `guide_group` (
   `id` int(32) NOT NULL AUTO_INCREMENT,
   `userId` INT(32) NOT NULL,
   `groupName` VARCHAR(32) NOT NULL,
+  `sort` INT(4) NOT NULL,
+  `status` INT(4) NOT NULL,
   `createTime` DATETIME NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
@@ -48,6 +50,8 @@ CREATE TABLE `guide_group_tag` (
   `groupName` VARCHAR(32) NOT NULL,
   `tagName` VARCHAR(32) NOT NULL,
   `tagLink` VARCHAR(256) NOT NULL,
+  `sort` INT(4) NOT NULL,
+  `status` INT(4) NOT NULL,
   `createTime` DATETIME NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;

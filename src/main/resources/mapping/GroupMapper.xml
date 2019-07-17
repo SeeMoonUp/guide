@@ -9,7 +9,7 @@
         VALUES (#{id}, #{userId}, #{groupName}, #{sort}, #{status}, #{createTime})
     </insert>
 
-    <select id="listGroup" resultType="com.javalemon.guide.model.dto.UserDTO">
+    <select id="listGroup" resultType="com.javalemon.guide.model.dto.GroupDTO">
         select * from guide_group where status = 1 and userId = #{userId} order by sort desc
     </select>
 

@@ -20,7 +20,6 @@ import java.util.Date;
 public class GroupTagDTO {
     private int id;
     private int userId;
-    private String name;
     private int groupId;
     private String groupName;
     private String tagName;

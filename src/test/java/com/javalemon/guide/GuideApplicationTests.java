@@ -1,7 +1,11 @@
 package com.javalemon.guide;
 
 import com.javalemon.guide.common.Result;
+import com.javalemon.guide.model.dto.GroupDTO;
+import com.javalemon.guide.model.dto.GroupTagDTO;
 import com.javalemon.guide.model.dto.MessageDTO;
+import com.javalemon.guide.service.GroupService;
+import com.javalemon.guide.service.GroupTagService;
 import com.javalemon.guide.service.MessageService;
 import org.json.JSONObject;
 import org.junit.Test;
@@ -11,6 +15,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -18,6 +23,12 @@ public class GuideApplicationTests {
 
 	@Resource
 	MessageService messageService;
+
+	@Resource
+	GroupService groupService;
+
+	@Resource
+	GroupTagService groupTagService;
 
 	@Test
 	public void contextLoads() {
@@ -39,6 +50,22 @@ public class GuideApplicationTests {
 	public void testListMessage() {
 		Result result = messageService.listMessage(2);
 		System.out.println(result.toString());
+	}
+
+	@Test
+	public void testGroup() {
+		Result miss = groupService.addGroup(GroupDTO.builder().createTime(new Date()).userId(2).groupName("miss").sort(1).status(1).build());
+		System.out.println(miss);
+		Result<List<GroupDTO>> listResult = groupService.listGroup(2);
+		System.out.println(listResult);
+	}
+
+	@Test
+	public void testGroupTag() {
+		Result miss = groupTagService.addGroupTag(GroupTagDTO.builder().createTime(new Date()).userId(2).groupName("miss").groupId(1).tagName("wiki").tagLink("https://www.baidu.com/").sort(1).status(1).build());
+		System.out.println(miss);
+		Result<List<GroupTagDTO>> listResult = groupTagService.listGroupTag(2, 1);
+		System.out.println(listResult);
 	}
 
 }

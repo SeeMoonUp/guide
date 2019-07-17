@@ -22,7 +22,7 @@ public class GroupService {
     @Resource
     private GroupDao groupDao;
 
-    public Result addUser(GroupDTO groupDTO) {
+    public Result addGroup(GroupDTO groupDTO) {
         try {
             int res = groupDao.addGroup(groupDTO);
             if (res >= 0) {

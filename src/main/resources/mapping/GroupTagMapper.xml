@@ -5,15 +5,15 @@
 <mapper namespace="com.javalemon.guide.dao.mapper.GroupTagMapper">
 
     <insert id="addGroupTag"  parameterType="com.javalemon.guide.model.dto.GroupTagDTO" useGeneratedKeys="true" keyProperty="id">
-        insert into guide_group_tag (userId, name, groupId, groupName, tagName, tagLink, sort, status, createTime)
-        VALUES (#{userId}, #{name}, #{groupId}, #{groupName}, #{tagName}, #{tagLink}, #{sort}, #{status}, #{createTime})
+        insert into guide_group_tag (userId, groupId, groupName, tagName, tagLink, sort, status, createTime)
+        VALUES (#{userId}, #{groupId}, #{groupName}, #{tagName}, #{tagLink}, #{sort}, #{status}, #{createTime})
     </insert>
 
     <update id="deleteGroupTag"  parameterType="int">
         update guide_group_tag set status = 2 where id = #{groupTagId}
     </update>
 
-    <select id="listGroupTag" resultType="com.javalemon.guide.model.dto.UserDTO" parameterMap="map">
+    <select id="listGroupTag" resultType="com.javalemon.guide.model.dto.GroupTagDTO" parameterType="map">
         select * from guide_group_tag where status =  1 and userId = #{userId} and groupId = #{groupId} order by sort desc
     </select>
 
