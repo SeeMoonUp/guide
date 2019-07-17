@@ -105,7 +105,7 @@
 
             <div class="layui-col-md1 layui-col-md-offset2">
                 <ul class="layui">
-                    <li style="float: left;padding-right: 10px;">
+                    <li style="float: left;padding-right: 10px;" onclick="showUser()">
                         <i class="layui-icon layui-icon-username" style="font-size: 25px;"></i>
                     </li>
                     <li style="float: left;padding-right: 10px;" onclick="showMessage()">
@@ -356,6 +356,19 @@
 
         // layer.msg('Hello World');
     }();
+
+    function showUser() {
+        layer.open({
+            type: 2,
+            anim: 2,
+            title: '用户中心',
+            shadeClose: true,
+            shade: 0.3,
+            area: ['380px', '100%'],
+            offset: 'rt',
+            content: 'user/showUser' //iframe的url
+        });
+    }
 
     function showMessage() {
         layer.open({

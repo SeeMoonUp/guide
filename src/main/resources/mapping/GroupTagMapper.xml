@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.javalemon.guide.dao.mapper.GroupTagMapper">
+
+    <insert id="addGroupTag"  parameterType="com.javalemon.guide.model.dto.GroupTagDTO" useGeneratedKeys="true" keyProperty="id">
+        insert into guide_group_tag (userId, name, groupId, groupName, tagName, tagLink, sort, status, createTime)
+        VALUES (#{userId}, #{name}, #{groupId}, #{groupName}, #{tagName}, #{tagLink}, #{sort}, #{status}, #{createTime})
+    </insert>
+
+    <update id="deleteGroupTag"  parameterType="int">
+        update guide_group_tag set status = 2 where id = #{groupTagId}
+    </update>
+
+    <select id="listGroupTag" resultType="com.javalemon.guide.model.dto.UserDTO" parameterMap="map">
+        select * from guide_group_tag where status =  1 and userId = #{userId} and groupId = #{groupId} order by sort desc
+    </select>
+
+</mapper>
