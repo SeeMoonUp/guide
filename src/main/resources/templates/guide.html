@@ -80,7 +80,7 @@
                         </div>
                         <div class="layui-tab-item layui-show">
                             <form class="layui-form layui-form-pane" action="https://www.baidu.com/s" target="_blank">
-                                <input type="text" name="word" required lay-verify="required" placeholder="百度一下 你就知道" autocomplete="off" class="layui-input">
+                                <input id="baiduSearch" type="text" name="word" required lay-verify="required" placeholder="百度一下 你就知道" autocomplete="off" class="layui-input">
                             </form>
                         </div>
                         <div class="layui-tab-item">
@@ -116,7 +116,7 @@
                     </li>
                     <li style="float: left;padding-right: 10px;">
                         <i class="show layui-icon layui-icon-circle" style="font-size: 25px;" onclick="edit()"></i>
-                        <i class="edit layui-icon layui-icon-radio" style="font-size: 25px;" onclick="show()"></i>
+                        <i class="edit layui-icon layui-icon-radio" style="font-size: 25px;display: none;" onclick="show()"></i>
                     </li>
                 </ul>
             </div>
@@ -139,22 +139,22 @@
             <div style="padding-top: 2em;padding-bottom: 2em;" class="center">
                 <div class="edit layui-col-xs12 layui-col-md10 layui-col-md-offset1">
                     <div class="layui-col-xs3 layui-col-sm2 layui-col-md2">
-                        <i class="layui-icon layui-icon-add-circle" style="font-size: 18px;" onclick="addGroup()"></i>
+                        <i class="layui-icon layui-icon-add-circle" style="font-size: 18px;display: none;" onclick="addGroup()"></i>
                     </div>
                 </div>
                 <div class="layui-row grid" th:each="tagInfo: ${tagInfoVOs}">
                     <div class="layui-col-xs12 layui-col-md10 layui-col-md-offset1">
                         <div class="layui-col-xs2 layui-col-sm2 layui-col-md2 layui-word-aux">
                             <span th:text="${tagInfo.groupName}">技术</span>
-                            <i class="edit layui-icon layui-icon-edit" style="font-size: 18px;" th:onclick="'javascript:addGroup(\''+${tagInfo.groupId}+'\')'"></i>
+                            <i class="edit layui-icon layui-icon-edit" style="font-size: 18px;display: none;" th:onclick="'javascript:addGroup(\''+${tagInfo.groupId}+'\')'"></i>
                         </div>
                         <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
                             <div class="layui-col-xs3 layui-col-sm2 layui-col-md2" th:each="oneTagInfo: ${tagInfo.groupTagVOList}">
                                 <a th:href="${oneTagInfo.getGroupTagLink()}" target="_blank" th:text="${oneTagInfo.groupTagName}">Github</a>
-                                <i class="edit layui-icon layui-icon-edit" style="font-size: 18px;" th:onclick="'javascript:addTag(\''+${tagInfo.groupId}+'\',\''+${oneTagInfo.groupTagId}+'\')'"></i>
+                                <i class="edit layui-icon layui-icon-edit" style="font-size: 18px;display: none;" th:onclick="'javascript:addTag(\''+${tagInfo.groupId}+'\',\''+${oneTagInfo.groupTagId}+'\')'"></i>
                             </div>
                             <div class="layui-col-xs3 layui-col-sm2 layui-col-md2">
-                                <i class="edit layui-icon layui-icon-add-circle" style="font-size: 18px;" th:onclick="'javascript:addTag(\''+${tagInfo.groupId}+'\')'"></i>
+                                <i class="edit layui-icon layui-icon-add-circle" style="font-size: 18px;display: none;" th:onclick="'javascript:addTag(\''+${tagInfo.groupId}+'\')'"></i>
                             </div>
                         </div>
                     </div>
@@ -517,7 +517,7 @@
             window.open("http://wangchujiang.com/linux-command/list.html#!kw=" + $('#linuxkw').val(), "_blank");
         })
 
-        $("#googlesearch").focus();
+        $("#baiduSearch").focus();
     });
 
 </script>
