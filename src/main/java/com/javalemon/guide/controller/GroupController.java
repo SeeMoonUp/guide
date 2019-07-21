@@ -33,7 +33,7 @@ public class GroupController {
 
     @GetMapping("showGroup")
     public String showTag(HttpServletRequest request, Model model) {
-        int groupId = Integer.parseInt(request.getParameter("groupId"));
+        int groupId = NumberUtils.toInt(request.getParameter("groupId"));
         model.addAttribute("groupId", groupId);
         Result<GroupDTO> groupResult = groupService.getGroup(groupId);
         if (!groupResult.isSuccess()) {
