@@ -9,20 +9,18 @@ import com.javalemon.guide.service.GroupService;
 import com.javalemon.guide.service.GroupTagService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.apache.logging.log4j.message.MapMessage.MapFormat.JSON;
 
 /**
  * @author lemon
@@ -57,6 +55,7 @@ public class GuideController {
 
         Result<List<GroupDTO>> groupList = groupService.listGroup(userId);
         if (!groupList.isSuccess() || CollectionUtils.isEmpty(groupList.getData())) {
+            System.out.println("testlog1");
             return "guide";
         }
 
@@ -87,6 +86,7 @@ public class GuideController {
             tagInfoVOs.add(groupTagInfoVO);
         }
         model.addAttribute("tagInfoVOs", tagInfoVOs);
+        System.out.println(tagInfoVOs.size());
 
         return "guide";
     }
