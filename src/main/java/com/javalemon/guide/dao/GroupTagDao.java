@@ -28,4 +28,12 @@ public class GroupTagDao {
     public int deleteGroupTag(int groupTagId) {
         return groupTagMapper.deleteGroupTag(groupTagId);
     }
+
+    public int updateGroupTag(int tagId, String tagName, String tagLink, int sort) {
+        return groupTagMapper.updateGroupTag(tagId, tagName, tagLink, sort);
+    }
+
+    public GroupTagDTO getTag(int tagId) {
+        return groupTagMapper.getTag(tagId);
+    }
 }

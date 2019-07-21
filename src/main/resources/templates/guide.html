@@ -114,6 +114,10 @@
                     <li style="float: left;padding-right: 10px;" onclick="sendMessage()">
                         <i class="layui-icon layui-icon-release" style="font-size: 25px;"></i>
                     </li>
+                    <li style="float: left;padding-right: 10px;">
+                        <i class="show layui-icon layui-icon-circle" style="font-size: 25px;" onclick="edit()"></i>
+                        <i class="edit layui-icon layui-icon-radio" style="font-size: 25px;" onclick="show()"></i>
+                    </li>
                 </ul>
             </div>
 
@@ -133,14 +137,24 @@
             -->
 
             <div style="padding-top: 2em;padding-bottom: 2em;" class="center">
+                <div class="edit layui-col-xs12 layui-col-md10 layui-col-md-offset1">
+                    <div class="layui-col-xs3 layui-col-sm2 layui-col-md2">
+                        <i class="layui-icon layui-icon-add-circle" style="font-size: 18px;" onclick="addGroup()"></i>
+                    </div>
+                </div>
                 <div class="layui-row grid" th:each="tagInfo: ${tagInfoVOs}">
                     <div class="layui-col-xs12 layui-col-md10 layui-col-md-offset1">
                         <div class="layui-col-xs2 layui-col-sm2 layui-col-md2 layui-word-aux">
-                            <div th:text="${tagInfo.groupName}">技术</div>
+                            <span th:text="${tagInfo.groupName}">技术</span>
+                            <i class="edit layui-icon layui-icon-edit" style="font-size: 18px;" th:onclick="'javascript:addGroup(\''+${tagInfo.groupId}+'\')'"></i>
                         </div>
                         <div class="layui-col-xs10 layui-col-sm10 layui-col-md10">
                             <div class="layui-col-xs3 layui-col-sm2 layui-col-md2" th:each="oneTagInfo: ${tagInfo.groupTagVOList}">
-                                <div><a th:href="${oneTagInfo.getGroupTagLink()}" target="_blank" th:text="${oneTagInfo.groupTagName}">Github</a> </div>
+                                <a th:href="${oneTagInfo.getGroupTagLink()}" target="_blank" th:text="${oneTagInfo.groupTagName}">Github</a>
+                                <i class="edit layui-icon layui-icon-edit" style="font-size: 18px;" th:onclick="'javascript:addTag(\''+${tagInfo.groupId}+'\',\''+${oneTagInfo.groupTagId}+'\')'"></i>
+                            </div>
+                            <div class="layui-col-xs3 layui-col-sm2 layui-col-md2">
+                                <i class="edit layui-icon layui-icon-add-circle" style="font-size: 18px;" th:onclick="'javascript:addTag(\''+${tagInfo.groupId}+'\')'"></i>
                             </div>
                         </div>
                     </div>
@@ -366,9 +380,54 @@
     ;!function(){
         var layer = layui.layer
             ,form = layui.form;
+        var $ = layui.jquery;
+        $('.edit').hide();
 
         // layer.msg('Hello World');
     }();
+
+    function edit() {
+        var $ = layui.jquery;
+        $('.edit').show();
+        $('.show').hide();
+    }
+
+    function show() {
+        var $ = layui.jquery;
+        $('.edit').hide();
+        $('.show').show();
+    }
+
+    function addTag(groupId, tagId) {
+        if (typeof groupId === 'undefined' || groupId <= 0) {
+            return;
+        }
+
+        layer.open({
+            type: 2,
+            anim: 2,
+            title: '标签',
+            shadeClose: true,
+            shade: 0.3,
+            area:['380px', '330px'],
+            offset: 'auto',
+            content: 'tag/showTag?groupId='+groupId+'&tagId='+tagId //iframe的url
+        });
+    }
+
+    function addGroup(groupId) {
+
+        layer.open({
+            type: 2,
+            anim: 2,
+            title: '分组',
+            shadeClose: true,
+            shade: 0.3,
+            area:['380px', '250px'],
+            offset: 'auto',
+            content: 'group/showGroup?groupId='+groupId //iframe的url
+        });
+    }
 
     function showUser() {
         layer.open({

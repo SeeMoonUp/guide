@@ -43,7 +43,9 @@ public class Result<T> {
     public enum CodeEnum{
         SUCCESS(0, "成功"),
         DAO_ERROR(1, "数据执行异常"),
-        SERVICE_ERROR(2, "服务层执行异常");
+        SERVICE_ERROR(2, "服务层执行异常"),
+        NO_GROUP_ERROR(3, "没有找到对应的分组信息"),
+        NO_TAG_ERROR(4, "没有找到对应的标签信息");
 
         private int code;
         private String msg;

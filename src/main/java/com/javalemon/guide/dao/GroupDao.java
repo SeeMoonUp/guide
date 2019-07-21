@@ -28,4 +28,12 @@ public class GroupDao {
     public int deleteGroup(int groupId) {
         return groupMapper.deleteGroup(groupId);
     }
+
+    public GroupDTO getGroup(int groupId) {
+        return groupMapper.getGroup(groupId);
+    }
+
+    public int updateGroup(int groupId, String groupName, int sort) {
+        return groupMapper.updateGroup(groupId, groupName, sort);
+    }
 }

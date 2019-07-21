@@ -44,9 +44,31 @@ public class GroupService {
         }
     }
 
+    public Result<GroupDTO> getGroup(int groupId) {
+        try {
+            GroupDTO groupDTO = groupDao.getGroup(groupId);
+            return Result.success(groupDTO);
+        } catch (Exception e) {
+            return Result.error(Result.CodeEnum.SERVICE_ERROR);
+        }
+    }
+
     public Result deleteGroup(int groupId) {
         try {
             int res = groupDao.deleteGroup(groupId);
+            if (res >= 0) {
+                return Result.success();
+            } else {
+                return Result.error(Result.CodeEnum.DAO_ERROR);
+            }
+        } catch (Exception e) {
+            return Result.error(Result.CodeEnum.SERVICE_ERROR);
+        }
+    }
+
+    public Result updateGroup(int groupId, String groupName, int sort) {
+        try {
+            int res = groupDao.updateGroup(groupId, groupName, sort);
             if (res >= 0) {
                 return Result.success();
             } else {

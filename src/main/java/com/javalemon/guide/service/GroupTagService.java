@@ -56,4 +56,26 @@ public class GroupTagService {
             return Result.error(Result.CodeEnum.SERVICE_ERROR);
         }
     }
+
+    public Result updateGroupTag(int tagId, String tagName, String tagLink, int sort) {
+        try {
+            int res = groupTagDao.updateGroupTag(tagId, tagName, tagLink, sort);
+            if (res >= 0) {
+                return Result.success();
+            } else {
+                return Result.error(Result.CodeEnum.DAO_ERROR);
+            }
+        } catch (Exception e) {
+            return Result.error(Result.CodeEnum.SERVICE_ERROR);
+        }
+    }
+
+    public Result<GroupTagDTO> getTag(int tagId) {
+        try {
+            GroupTagDTO groupTagDTO = groupTagDao.getTag(tagId);
+            return Result.success(groupTagDTO);
+        } catch (Exception e) {
+            return Result.error(Result.CodeEnum.SERVICE_ERROR);
+        }
+    }
 }

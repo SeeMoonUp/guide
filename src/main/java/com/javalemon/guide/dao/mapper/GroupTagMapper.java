@@ -18,4 +18,13 @@ public interface GroupTagMapper {
             @Param("groupId") int groupId);
 
     int deleteGroupTag(int groupTagId);
+
+    int updateGroupTag(
+            @Param("tagId") int tagId,
+            @Param("tagName") String tagName,
+            @Param("tagLink") String tagLink,
+            @Param("sort") int sort
+    );
+
+    GroupTagDTO getTag(int tagId);
 }

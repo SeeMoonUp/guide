@@ -68,16 +68,18 @@ public class GuideController {
             groupTagInfoVO.setGroupName(groupDTO.getGroupName());
 
             Result<List<GroupTagDTO>> tagListResult = groupTagService.listGroupTag(userId, groupDTO.getId());
-            if (!tagListResult.isSuccess() || CollectionUtils.isEmpty(tagListResult.getData())) {
+            if (!tagListResult.isSuccess()) {
                 continue;
             }
 
             List<GroupTagVO> groupTagVOS = new ArrayList<>();
-            for (GroupTagDTO groupTagDTO : tagListResult.getData()) {
-                groupTagVOS.add(GroupTagVO.builder().groupTagId(groupTagDTO.getId())
-                        .groupTagName(groupTagDTO.getTagName())
-                        .groupTagLink(groupTagDTO.getTagLink()).build()
-                );
+            if (!CollectionUtils.isEmpty(tagListResult.getData())) {
+                for (GroupTagDTO groupTagDTO : tagListResult.getData()) {
+                    groupTagVOS.add(GroupTagVO.builder().groupTagId(groupTagDTO.getId())
+                            .groupTagName(groupTagDTO.getTagName())
+                            .groupTagLink(groupTagDTO.getTagLink()).build()
+                    );
+                }
             }
 
 

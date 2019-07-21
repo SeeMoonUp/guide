@@ -13,8 +13,16 @@
         select * from guide_group where status = 1 and userId = #{userId} order by sort desc
     </select>
 
+    <select id="getGroup" resultType="com.javalemon.guide.model.dto.GroupDTO">
+        select * from guide_group where status = 1 and id = #{groupId} order by sort desc
+    </select>
+
     <update id="deleteGroup" parameterType="int">
         update guide_group set status = 2 where id = #{groupId}
+    </update>
+
+    <update id="updateGroup" parameterType="map">
+        update guide_group set groupName = #{groupName}, sort = #{sort} where id = #{groupId}
     </update>
 
 </mapper>
