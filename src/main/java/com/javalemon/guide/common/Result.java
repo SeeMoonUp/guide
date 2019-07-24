@@ -45,7 +45,10 @@ public class Result<T> {
         DAO_ERROR(1, "数据执行异常"),
         SERVICE_ERROR(2, "服务层执行异常"),
         NO_GROUP_ERROR(3, "没有找到对应的分组信息"),
-        NO_TAG_ERROR(4, "没有找到对应的标签信息");
+        NO_TAG_ERROR(4, "没有找到对应的标签信息"),
+        NO_LOGIN(5, "未登录"),
+        PASS_ERROR(6, "密码或用户名错误"),
+        ;
 
         private int code;
         private String msg;

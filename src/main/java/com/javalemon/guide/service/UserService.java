@@ -30,7 +30,7 @@ public class UserService {
         try {
             int res = userDao.addUser(userDTO);
             if (res >= 0) {
-                return Result.success();
+                return Result.success(userDTO.getId());
             } else {
                 return Result.error(Result.CodeEnum.DAO_ERROR);
             }
@@ -42,6 +42,15 @@ public class UserService {
     public Result<UserDTO> getUser(int userId) {
         try {
             UserDTO userDTO = userDao.getUser(userId);
+            return Result.success(userDTO);
+        } catch (Exception e) {
+            return Result.error(Result.CodeEnum.SERVICE_ERROR);
+        }
+    }
+
+    public Result<UserDTO> getUserByEmail(String email) {
+        try {
+            UserDTO userDTO = userDao.getUserByEmail(email);
             return Result.success(userDTO);
         } catch (Exception e) {
             return Result.error(Result.CodeEnum.SERVICE_ERROR);

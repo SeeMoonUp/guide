@@ -26,7 +26,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("tag")
-public class GroupTagController {
+public class GroupTagController extends BaseController{
 
     @Resource
     private GroupTagService groupTagService;
@@ -49,7 +49,7 @@ public class GroupTagController {
             return "tag";
         }
 
-        int userId = 2;
+        int userId = getUserId(request);
         Result<List<GroupDTO>> groupListResult = groupService.listGroup(userId);
         model.addAttribute("groupList", groupListResult.getData());
         model.addAttribute("groupId", groupId);
@@ -60,7 +60,10 @@ public class GroupTagController {
     @PostMapping("addTag")
     @ResponseBody
     public Result addTag(HttpServletRequest request) {
-        int userId = 2;
+        int userId = getUserId(request);
+        if (userId <= 0) {
+            return Result.error(Result.CodeEnum.NO_LOGIN);
+        }
         int sort = Integer.parseInt(request.getParameter("sort"));
         int groupId = NumberUtils.toInt(StringUtils.trimToEmpty(request.getParameter("groupId")));
         if (groupId == 0) {

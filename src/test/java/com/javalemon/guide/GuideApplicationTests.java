@@ -4,9 +4,11 @@ import com.javalemon.guide.common.Result;
 import com.javalemon.guide.model.dto.GroupDTO;
 import com.javalemon.guide.model.dto.GroupTagDTO;
 import com.javalemon.guide.model.dto.MessageDTO;
+import com.javalemon.guide.model.dto.UserDTO;
 import com.javalemon.guide.service.GroupService;
 import com.javalemon.guide.service.GroupTagService;
 import com.javalemon.guide.service.MessageService;
+import com.javalemon.guide.service.UserService;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -29,6 +31,9 @@ public class GuideApplicationTests {
 
 	@Resource
 	GroupTagService groupTagService;
+
+	@Resource
+	UserService userService;
 
 	@Test
 	public void contextLoads() {
@@ -66,6 +71,18 @@ public class GuideApplicationTests {
 		System.out.println(miss);
 		Result<List<GroupTagDTO>> listResult = groupTagService.listGroupTag(2, 1);
 		System.out.println(listResult);
+	}
+
+	@Test
+	public void addUser() {
+		Result result = userService.addUser(UserDTO.builder()
+				.createTime(new Date())
+				.name("123")
+				.email("123")
+				.password("123")
+				.build()
+		);
+		System.out.println(result);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.javalemon.guide.controller;
 
 import com.javalemon.guide.common.Result;
+import com.javalemon.guide.common.utils.web.CookieUtils;
 import com.javalemon.guide.model.dto.GroupDTO;
 import com.javalemon.guide.model.dto.GroupTagDTO;
 import com.javalemon.guide.service.GroupService;
@@ -26,7 +27,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("group")
-public class GroupController {
+public class GroupController extends BaseController{
 
     @Resource
     private GroupService groupService;
@@ -48,7 +49,11 @@ public class GroupController {
     @PostMapping("addGroup")
     @ResponseBody
     public Result addGroup(HttpServletRequest request, Model model) {
-        int userId = 2;
+        int userId = getUserId(request);
+        if (userId <= 0) {
+            return Result.error(Result.CodeEnum.NO_LOGIN);
+        }
+
         int groupId = NumberUtils.toInt(request.getParameter("groupId"));
         String groupName = StringUtils.trimToEmpty(request.getParameter("groupName"));
         int sort = NumberUtils.toInt(request.getParameter("sort"));

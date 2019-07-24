@@ -10,4 +10,6 @@ public interface UserMapper {
     int addUser(UserDTO userDTO);
 
     UserDTO getUser(int userId);
+
+    UserDTO getUserByEmail(String email);
 }

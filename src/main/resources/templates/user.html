@@ -27,40 +27,46 @@
 <![endif]-->
 
     <div class="layui-container">
-        <form class="layui-form" action="">
+        <form class="layui-form">
             <div class="layui-form-item">
                 <label class="layui-form-label">用户名</label>
                 <div class="layui-input-block">
-                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                    <input type="text" name="title" id="name" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-block">
-                    <input type="text" name="email" required  lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
+                    <input type="text" name="email" id="email" required  lay-verify="required" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">密码框</label>
                 <div class="layui-input-inline">
-                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    <input type="password" name="password" id="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
                 </div>
                 <!--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">确认密码</label>
                 <div class="layui-input-inline">
-                    <input type="password" name="password2" required lay-verify="required" placeholder="确认密码" autocomplete="off" class="layui-input">
+                    <input type="password" name="password2" id="password2" required lay-verify="required" placeholder="确认密码" autocomplete="off" class="layui-input">
                 </div>
                 <!--<div class="layui-form-mid layui-word-aux">辅助文字</div>-->
             </div>
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
-                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                    <!--<button class="layui-btn" onclick="addUser()">立即提交</button>-->
+                    <!--<button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
                 </div>
             </div>
         </form>
+        <div class="layui-input-block" th:hidden="${userId>0}">
+            <button class="layui-btn" onclick="login()">立即登录</button>
+        </div>
+        <div class="layui-input-block" th:hidden="${userId<=0}">
+            <button class="layui-danger" onclick="logout()">退出登录</button>
+        </div>
     </div>
 
 <script src="/layui/layui.all.js" charset="utf-8"></script>
@@ -72,6 +78,79 @@
 
         // layer.msg('Hello World');
     }();
+
+    function login() {
+        var $ = layui.jquery;
+        var name = $("#name").val();
+        var email = $("#email").val();
+        var password = $("#password").val();
+        var password2 = $("#password2").val();
+        if (typeof name === 'undefined' || typeof email === 'undefined' || typeof password === 'undefined' || typeof password2 === 'undefined') {
+            layer.msg("必填项不能为空");
+            return;
+        }
+
+        if (password !== password2) {
+            layer.msg("密码输入不一致");
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/user/login',
+            data:{
+                name:name,
+                email:email,
+                password:password
+            },
+            dataType: 'json',
+            success: function(data){
+
+                if (data.code === 0) {
+                    layer.closeAll();
+                    layer.msg('提交成功');
+                    setTimeout(function () {
+                        parent.location.reload();
+                    }, 2000);
+
+                } else {
+                    layer.msg('网络出了问题');
+                }
+            },
+            error: function(xhr, type){
+                layer.msg('网络出了问题');
+            }
+        });
+        
+        
+    }
+
+    function logout() {
+        $.ajax({
+            type: 'POST',
+            url: '/user/logout',
+            data:{},
+            dataType: 'json',
+            success: function(data){
+
+                if (data.code === 0) {
+                    layer.closeAll();
+                    layer.msg('登出成功');
+                    setTimeout(function () {
+                        parent.location.reload();
+                    }, 2000);
+
+                } else {
+                    layer.msg('网络出了问题');
+                }
+            },
+            error: function(xhr, type){
+                layer.msg('网络出了问题');
+            }
+        });
+
+
+    }
 
     layui.use('layer', function() { //独立版的layer无需执行这一句
         var $ = layui.jquery, layer = layui.layer; //独立版的layer无需执行这一句

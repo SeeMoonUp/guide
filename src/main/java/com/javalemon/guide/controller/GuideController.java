@@ -17,6 +17,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ import static org.apache.logging.log4j.message.MapMessage.MapFormat.JSON;
 @Controller
 @Configuration
 @Data
-public class GuideController {
+public class GuideController extends BaseController{
 
     @Resource
     GroupService groupService;
@@ -43,9 +44,9 @@ public class GuideController {
     private String port;
 
     @GetMapping("/")
-    public String index(Model model) {
+    public String index(HttpServletRequest request, Model model) {
         model.addAttribute("userInfo", port);
-        int userId = 2;
+        int userId = getUserId(request);
 
         Result<List<GroupDTO>> groupList = groupService.listGroup(userId);
         if (!groupList.isSuccess() || CollectionUtils.isEmpty(groupList.getData())) {

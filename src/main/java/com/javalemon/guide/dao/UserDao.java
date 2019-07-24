@@ -24,4 +24,8 @@ public class UserDao {
     public UserDTO getUser(int userId) {
         return userMapper.getUser(userId);
     }
+
+    public UserDTO getUserByEmail(String email) {
+        return userMapper.getUserByEmail(email);
+    }
 }
