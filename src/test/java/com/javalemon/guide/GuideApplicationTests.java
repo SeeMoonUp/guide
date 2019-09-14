@@ -9,6 +9,7 @@ import com.javalemon.guide.service.GroupService;
 import com.javalemon.guide.service.GroupTagService;
 import com.javalemon.guide.service.MessageService;
 import com.javalemon.guide.service.UserService;
+import com.qiniu.util.Auth;
 import org.json.JSONObject;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -83,6 +84,16 @@ public class GuideApplicationTests {
 				.build()
 		);
 		System.out.println(result);
+	}
+
+	@Test
+	public void testGetToken() {
+		String accessKey = "CM1Xk5INASWuZfY8AX6f5xOVXx4_MlMo7ETRej-J";
+		String secretKey = "1KuZD2XPAHmQRB9072ZsdwmjF1_uHKtdhuTy60wW";
+		String bucket = "bit-video";
+		Auth auth = Auth.create(accessKey, secretKey);
+		String upToken = auth.uploadToken(bucket);
+		System.out.println(upToken);
 	}
 
 }
