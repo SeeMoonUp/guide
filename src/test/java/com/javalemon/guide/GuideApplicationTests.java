@@ -19,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -94,6 +95,7 @@ public class GuideApplicationTests {
 		Auth auth = Auth.create(accessKey, secretKey);
 		String upToken = auth.uploadToken(bucket);
 		System.out.println(upToken);
+		System.out.println(UUID.randomUUID().toString());
 	}
 
 }
